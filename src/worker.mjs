@@ -12,17 +12,20 @@ export default {
 			  <meta charset="UTF-8">
 			  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 			  <title>OpenAI Gemini API</title>
+			  <style>
+				body { font-family: Arial, sans-serif; }
+				#chat-container { width: 80%; margin: 20px auto; }
+				#messages { height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px; }
+				#input { width: 100%; padding: 10px; }
+			  </style>
 			</head>
 			<body>
 			  <h1>Добро пожаловать в OpenAI Gemini API</h1>
-			  <p>Этот API позволяет вам взаимодействовать с моделями машинного обучения для генерации текста.</p>
-			  <h2>Как использовать API</h2>
-			  <p>Для получения ответов от API, отправьте POST-запрос на <code>/v1/chat/completions</code> с вашим API ключом и данными.</p>
-			  <pre>
-				 curl -X POST https://your-domain.com/v1/chat/completions \\
-						-H "Authorization: Bearer YOUR_API_KEY" \\
-						-d '{"messages": [{"content": "Привет"}]}'
-			  </pre>
+			  <div id="chat-container">
+				<div id="messages"></div>
+				<input type="text" id="input" placeholder="Введите ваше сообщение здесь...">
+			  </div>
+			  <script src="chat.js"></script>
 			</body>
 			</html>
 		 `;

@@ -23,9 +23,11 @@ export default {
 			<body>
 			  <h1>Добро пожаловать в OpenAI Gemini API</h1>
 			  <div id="chat-container">
-				<div id="messages"></div>
-				<input type="text" id="input" placeholder="Введите ваше сообщение здесь...">
-			  </div>
+			  <div id="chat-container">
+			  <div id="messages"></div>
+			  <input type="text" id="input" placeholder="Введите сообщение...">
+			  <button id="sendButton">Отправить</button> <!-- Кнопка для отправки сообщения -->
+		 </div>
 			  <script src="chat.js"></script>
 			</body>
 			</html>

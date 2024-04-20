@@ -1,16 +1,16 @@
 document.getElementById('input').addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {
-        event.preventDefault();  // Предотвратить перевод строки в поле ввода
-        const input = document.getElementById('input');
-        const message = input.value;
-        input.value = ''; // Очистить поле ввода
+        event.preventDefault(); // Предотвратить действие по умолчанию для Enter
 
-        // Отображение сообщения пользователя в чате
+        const message = this.value; // Получаем значение из поля ввода
+        this.value = ''; // Очищаем поле ввода
+
+        // Добавляем сообщение пользователя в чат
         const userMessage = document.createElement('div');
         userMessage.textContent = 'Вы: ' + message;
         document.getElementById('messages').appendChild(userMessage);
 
-        // Отправка сообщения на сервер и получение ответа
+        // Отправляем сообщение на сервер и обрабатываем ответ
         fetch('https://openai-gemini-1-5-pro.vercel.app/v1/chat/completions', {
             method: 'POST',
             headers: {

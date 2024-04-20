@@ -2,19 +2,45 @@ import { Buffer } from "node:buffer";
 // alt: import { base64url } from "rfc4648";
 
 export default {
-  async fetch (request) {
-    if (request.method === "OPTIONS") {
-      return handleOPTIONS();
-    }
-    const url = new URL(request.url);
-    if (!url.pathname.endsWith("/v1/chat/completions") || request.method !== "POST") {
-      return new Response("404 Not Found", { status: 404 });
-    }
+	async fetch(request) {
+	  const url = new URL(request.url);
+	  if (url.pathname === "/") {
+		 const htmlContent = `
+			<!DOCTYPE html>
+			<html lang="ru">
+			<head>
+			  <meta charset="UTF-8">
+			  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+			  <title>OpenAI Gemini API</title>
+			</head>
+			<body>
+			  <h1>Добро пожаловать в OpenAI Gemini API</h1>
+			  <p>Этот API позволяет вам взаимодействовать с моделями машинного обучения для генерации текста.</p>
+			  <h2>Как использовать API</h2>
+			  <p>Для получения ответов от API, отправьте POST-запрос на <code>/v1/chat/completions</code> с вашим API ключом и данными.</p>
+			  <pre>
+				 curl -X POST https://your-domain.com/v1/chat/completions \\
+						-H "Authorization: Bearer YOUR_API_KEY" \\
+						-d '{"messages": [{"content": "Привет"}]}'
+			  </pre>
+			</body>
+			</html>
+		 `;
+		 return new Response(htmlContent, {
+			headers: {
+			  "Content-Type": "text/html"
+			}
+		 });
+	  }
+	  // Обработка других URL и методов как раньше
+	  if (!url.pathname.endsWith("/v1/chat/completions") || request.method !== "POST") {
+		 return new Response("404 Not Found", { status: 404 });
+	  }
     const auth = request.headers.get("Authorization");
-    let apiKey = auth && auth.split("Bearer ")[1];
-if (!apiKey || apiKey !== "AIzaSyD-2HgAcDbq8nh4XaTLwk6XwDlZh1qMrIY") {
-  return new Response("Bad credentials", { status: 401 });
-}
+	 let apiKey = auth && auth.split("Bearer ")[1];
+	 if (!apiKey || apiKey !== "AIzaSyD-2HgAcDbq8nh4XaTLwk6XwDlZh1qMrIY") {
+		return new Response("Bad credentials", { status: 401 });
+	 }
     let json;
     try {
       json = await request.json();
